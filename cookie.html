@@ -9,11 +9,25 @@
   </head>
   <body>
     <script type="text/javascript">
-      count = 0;
+     /*クッキーのカウント*/
+
       grandma_count = 0;
       farm_count = 0;
       kami_count = 0;
       yabaikami_count = 0;
+
+      let ls_count = localStorage.getItem("ls_count");
+      if (ls_count){
+        count = parseInt(ls_count);
+      }else{
+        count = 0;
+      }
+
+      setInterval(save_action,1000);
+      function save_action() {
+        localStorage.setItem("ls_count",count);
+
+      }
 
       /*画面更新処理*/
       setInterval(screen_update,10);
@@ -37,7 +51,7 @@
         if(count >= 50){
           count = count - 50;
           farm_count++;
-          setInterval(autoCountUp,1000,8);
+          setInterval(autoCountUp,1000,6);
         }
       }
       function kami() {
