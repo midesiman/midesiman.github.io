@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <style media="screen">
       img{width:300px;}
       .container{display:flex;}
@@ -46,11 +50,15 @@
 
       function cookie_click() {
         count++;
+        var cookie_img = document.getElementById('cookie_img');
+        cookie_img.classList.remove('animate__animated','animate__bounce');
+        void cookie_img.offsetWidth;
+        cookie_img.classList.add('animate__animated','animate__bounce');
       }
 
       function gradma() {
         if(count >= 10){
-          count = count - 10;
+          count = count - 20;
           grandma_count++;
           setInterval(autoCountUp,1000,1);
         }
@@ -59,21 +67,21 @@
         if(count >= 50){
           count = count - 50;
           farm_count++;
-          setInterval(autoCountUp,1000,6);
+          setInterval(autoCountUp,1000,3);
         }
       }
       function kami() {
         if(count >= 99999){
-          count = count - 99999;
+          count = count - 9999;
           kami_count++;
-          setInterval(autoCountUp,1000,54321);
+          setInterval(autoCountUp,800,);
         }
       }
       function yabaikami() {
         if(count >= 1234567890123){
-          count = count - 1234567890123;
+          count = count - 123456789;
           yabaikami_count++;
-          setInterval(autoCountUp,1000,10000000000000);
+          setInterval(autoCountUp,1000,12345);
         }
       }
 
@@ -83,20 +91,20 @@
     </script>
     <div class="container">
       <div class="item1">
-      <p>
+      <p class="animate__animated animate__bounce">
         <span id="cookie_count">0</span>枚
       </p>
-      <img onclick="cookie_click()" src="クッキー.jpg" alt="">
+      <img id="cookie_img" onclick="cookie_click()" src="クッキー.jpg" alt="">
     </div>
     <div class="item2">
       製作途中
     </div>
     <div class="item3">
       <ul>
-        <li onclick="gradma()">グラン魔 10枚必要</li>
+        <li onclick="gradma()">グラン魔 20枚必要</li>
         <li onclick="farm()">ファーム　50枚必要</li>
-        <li onclick="kami()">神　99999枚必要</li>
-        <li onclick="yabaikami()">ヤバい神　1234567890123枚必要</li>
+        <li onclick="kami()">神　9999枚必要</li>
+        <li onclick="yabaikami()">ヤバい神　123456789枚必要</li>
       </ul>
     </div>
    </div>
