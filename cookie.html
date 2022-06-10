@@ -21,6 +21,9 @@
   </head>
   <body>
     <script type="text/javascript">
+     /*インターバルIDを控える配列*/
+     let event_ids = [];
+
      /*クッキーのカウント*/
 
       grandma_count = 0;
@@ -60,9 +63,15 @@
         if(count >= 10){
           count = count - 20;
           grandma_count++;
-          setInterval(autoCountUp,1000,1);
+          let r_id = setInterval(autoCountUp,1000,1);
+          event_ids.push(r_id);
         }
       }
+      function sell_gradma(){
+        let r_id = event_ids.pop();
+        clearInterval(r_id);
+      }
+
       function farm() {
         if(count >= 50){
           count = count - 50;
@@ -88,6 +97,12 @@
       function autoCountUp(num) {
         count = count + num;
       }
+
+
+      function buildSwitch(){
+        let target_element =document.getElementById('buildings_buy');
+        target_element.style.display="none";
+      }
     </script>
     <div class="container">
       <div class="item1">
@@ -100,12 +115,26 @@
       製作途中
     </div>
     <div class="item3">
+      <div id="buildings_buy">
+      <span onclick="buildSwitch()">購入</span>
       <ul>
         <li onclick="gradma()">グラン魔 20枚必要</li>
         <li onclick="farm()">ファーム　50枚必要</li>
         <li onclick="kami()">神　9999枚必要</li>
         <li onclick="yabaikami()">ヤバい神　123456789枚必要</li>
       </ul>
+    </div>
+
+    <div id="buildings_sell">
+      売却
+      <ul>
+        <li onclick="sell_gradma()">グラン魔 20枚必要</li>
+        <li onclick="sell_farm()">ファーム　50枚必要</li>
+        <li onclick="sell_kami()">神　9999枚必要</li>
+        <li onclick="sell_yabaikami()">ヤバい神　123456789枚必要</li>
+      </ul>
+    </div>
+
     </div>
    </div>
   </body>
