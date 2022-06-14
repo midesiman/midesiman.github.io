@@ -15,6 +15,10 @@
              background-color: green;}
       .item3{flex-grow:3;
              background-color: red;}
+
+      #buildings_sell{
+        display: none;
+      }
     </style>
     <meta charset="utf-8">
     <title></title>
@@ -100,8 +104,17 @@
 
 
       function buildSwitch(){
-        let target_element =document.getElementById('buildings_buy');
-        target_element.style.display="none";
+        let buy_element =document.getElementById('buildings_buy');
+        let sell_element =document.getElementById('buildings_sell');
+
+        if(buy_element.style.display != "none"){
+          buy_element.style.display="none";
+          sell_element.style.display="block";
+        }else{
+          buy_element.style.display="block";
+          sell_element.style.display="none";
+        }
+
       }
     </script>
     <div class="container">
@@ -126,7 +139,7 @@
     </div>
 
     <div id="buildings_sell">
-      売却
+        <span onclick="buildSwitch()">売却</span>
       <ul>
         <li onclick="sell_gradma()">グラン魔 20枚必要</li>
         <li onclick="sell_farm()">ファーム　50枚必要</li>
