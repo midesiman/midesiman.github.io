@@ -28,6 +28,47 @@
      /*インターバルIDを控える配列*/
      let event_ids = [];
 
+
+     class Building {
+       //初期値の定義
+       constructor(time,num) {
+         this.interval_ids = [];
+         this.interval_time = time;
+         this.add_num = num;
+
+       }
+       //カウントアップのメソッド
+       count_up(num){
+         count+=num;
+       }
+       //購入した場合のメソッド
+       buy(){
+         let self = this;
+         let return_id=setInterval(function(){
+           self.count_up(self.add_num);
+         },1000);
+         this.interval_ids.push(return_id);
+       }
+       //売却のメソッド
+       sell(){
+         let return_id = this.interval_ids.pop();
+         clearInterval(return_id);
+       }
+     }
+
+     //各施設のオブジェクトをクラスから生成
+     let cursor = new Building(1000,1);
+     let grandma = new Building(1000,4);
+     //let farm = new Building(1000,8);
+     //let mine = new Building(1000,20);
+
+     //カーソルの施設を買うときは
+     //cursor.buy();
+
+     //カーソルの施設を売るときは
+     //cursor.sell();
+
+
      /*クッキーのカウント*/
 
       grandma_count = 0;
@@ -62,7 +103,7 @@
         void cookie_img.offsetWidth;
         cookie_img.classList.add('animate__animated','animate__bounce');
       }
-
+      /*
       function gradma() {
         if(count >= 10){
           count = count - 20;
@@ -75,7 +116,7 @@
         let r_id = event_ids.pop();
         clearInterval(r_id);
       }
-
+      */
       function farm() {
         if(count >= 50){
           count = count - 50;
@@ -130,21 +171,21 @@
     <div class="item3">
       <div id="buildings_buy">
       <span onclick="buildSwitch()">購入</span>
-      <ul>
-        <li onclick="gradma()">グラン魔 20枚必要</li>
-        <li onclick="farm()">ファーム　50枚必要</li>
-        <li onclick="kami()">神　9999枚必要</li>
-        <li onclick="yabaikami()">ヤバい神　123456789枚必要</li>
+      <ul>]
+        <li onclick="cursor.buy()">カーソル</li>
+        <li onclick="grandma.buy()">グラン魔</li>
+        <li onclick="farm.buy()">ファーム</li>
+        <li onclick="mine.buy()">マイン</li>
       </ul>
     </div>
 
     <div id="buildings_sell">
         <span onclick="buildSwitch()">売却</span>
       <ul>
-        <li onclick="sell_gradma()">グラン魔 20枚必要</li>
-        <li onclick="sell_farm()">ファーム　50枚必要</li>
-        <li onclick="sell_kami()">神　9999枚必要</li>
-        <li onclick="sell_yabaikami()">ヤバい神　123456789枚必要</li>
+        <li onclick="cursor.sell()">カーソル</li>
+        <li onclick="grandma.sell()">グラン魔</li>
+        <li onclick="farm.sell()">ファーム</li>
+        <li onclick="mine.sell()">マイン</li>
       </ul>
     </div>
 
