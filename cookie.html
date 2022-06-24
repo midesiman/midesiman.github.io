@@ -38,6 +38,9 @@
          this.cost = cost;
 
        }
+       get count(){
+         return this.interval_ids.length;
+       }
        //カウントアップのメソッド
        count_up(num){
          count+=num;
@@ -63,18 +66,10 @@
      //各施設のオブジェクトをクラスから生成
      let cursor = new Building(1000,1,50);
      let grandma = new Building(1000,4,170);
-     //let farm = new Building(1000,8,300);
-     //let mine = new Building(1000,20,700);
-
-     //カーソルの施設を買うときは
-     //cursor.buy();
-
-     //カーソルの施設を売るときは
-     //cursor.sell();
-
+     let farm = new Building(1000,8,300);
+     let mine = new Building(1000,20,700);
 
      /*クッキーのカウント*/
-
       grandma_count = 0;
       farm_count = 0;
       kami_count = 0;
@@ -107,46 +102,6 @@
         void cookie_img.offsetWidth;
         cookie_img.classList.add('animate__animated','animate__bounce');
       }
-      /*
-      function gradma() {
-        if(count >= 10){
-          count = count - 20;
-          grandma_count++;
-          let r_id = setInterval(autoCountUp,1000,1);
-          event_ids.push(r_id);
-        }
-      }
-      function sell_gradma(){
-        let r_id = event_ids.pop();
-        clearInterval(r_id);
-      }
-      */
-      function farm() {
-        if(count >= 50){
-          count = count - 50;
-          farm_count++;
-          setInterval(autoCountUp,1000,3);
-        }
-      }
-      function kami() {
-        if(count >= 99999){
-          count = count - 9999;
-          kami_count++;
-          setInterval(autoCountUp,800,);
-        }
-      }
-      function yabaikami() {
-        if(count >= 1234567890123){
-          count = count - 123456789;
-          yabaikami_count++;
-          setInterval(autoCountUp,1000,12345);
-        }
-      }
-
-      function autoCountUp(num) {
-        count = count + num;
-      }
-
 
       function buildSwitch(){
         let buy_element =document.getElementById('buildings_buy');
