@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>ウェザーニュース</title>
+    <title>ウェザーニュー図</title>
     <style media="screen">
      table,tr,td,th{border: 1px solid black}
     </style>
@@ -16,7 +16,23 @@
       </tr>
     </table>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
+　　　
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', "https://api.open-meteo.com/v1/forecast?latitude=35.6785&longitude=139.6823&daily=weathercode&timezone=Asia%2FTokyo");
+　　 xhr.send();
+
+　　　xhr.onreadystatechange = function() {
+   　　　if(xhr.readyState === 4 && xhr.status === 200) {
+
+        let date_array  = JSON.parse(xhr.responseText)["daily"] ["time"];
+        let weather_array  = JSON.parse(xhr.responseText)["daily"] ["weathercode"];
+
+　　　　 weather_array = weather_array.map(code => wcodeToStr(code));
+
+        createWeatherTable(date_array,weather_array);
+       }
+    }
 
        date_array=["2022-6-16",
                    "2022-6-17",
@@ -39,25 +55,19 @@
      });
    }
 
-   createWeatherTable(date_array,weather_array)
+   function wcodeToStr(code){
 
+     let w_code_list = {0:"快晴",
+                        1:"晴れ",
+                        2:"晴れ",
+                        3:"晴れ",
+                        45:"くもり",
+                        61:"雨",
+                        80:"豪雨",
+                        95:"雷雨"};
 
-   </script>
-
-   <script type="text/javascript">
-　　　
-     var xhr = new XMLHttpRequest();
-     xhr.open('GET', "https://api.open-meteo.com/v1/forecast?latitude=35.6785&longitude=139.6823&daily=weathercode&timezone=Asia%2FTokyo");
-　　 xhr.send();
-
-　　　xhr.onreadystatechange = function() {
-    　　　if(xhr.readyState === 4 && xhr.status === 200) {
-
-         let date_array  = JSON.parse(xhr.responseText)["daily"] ["time"];
-         let weather_array  = JSON.parse(xhr.responseText)["daily"] ["weathercode"];
-         createWeatherTable(date_array,weather_array);
-        }
-     }
+    return w_code_list[parseInt(code)]
+   }
 
     </script>
   </body>
