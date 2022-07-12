@@ -89,35 +89,43 @@
      </div>
   <script type="text/javascript">
     let timeline = document.getElementById('timeline');
-    let array = ["ピカァ～",
-                 "ピカピィ～カ",
-                 "ピカチュー",
-                 "ビカ！！"]
+    let array =  [{username:"ピカチュウ",date:"2022/07/12",text:"ピカァ～",fav_count:3104},
+                 {username:"ピカチュウ",date:"2022/07/12",text:"ピカピィ～カ",fav_count:3104},
+                 {username:"ピカチュウ",date:"2022/07/12",text:"ポケモンバトルしたくないなぁ.....",fav_count:3104},
+                 {username:"ピカチュウ",date:"2022/07/12",text:"ピッカッチュー",fav_count:3104},
+                 {username:"ピカチュウ",date:"2022/07/12",text:"ピッ",fav_count:3104},
+                 {username:"ピカチュウ",date:"2022/07/12",text:"ケチャップおいしい！",fav_count:3104},
+                 {username:"ピカチュウ",date:"2022/07/12",text:"ピカ！！",fav_count:3104}]
 
-   array.forEach((n) => {
-     let template = `<div class="tweet">
-         <div class="icon">
-           <img src="ピカチュウ.jpg" alt="">
-         </div>
-         <div class="tweet_box">
-           <div class="username">
-             ピカチュウ
-             <span class="name">@Pikachu</span>
-             <span class="date">2022/7/8 13:54</span>
-           </div>
-           <div class="text">
-             ${n}
-           </div>
-           <div class="action">
-             <span class="icon_chat">0</span>
-             <span class="icon_fav">0</span>
-             <span class="icon_res">0</span>
-             <span class="icon_share">0</span>
-           </div>
-         </div>
-       </div>`
-     timeline.innerHTML = timeline.innerHTML + template;
-   });
+  updateTweet();
+
+  async function updateTweet(){
+    let array = await (await fetch("http://192.168.0.90/timeline.json")).json();
+    array.forEach((tweet) => {
+      let template = `<div class="tweet">
+          <div class="icon">
+            <img src="ピカチュウ.jpg" alt="">
+          </div>
+          <div class="tweet_box">
+            <div class="username">
+              ${tweet.username}
+              <span class="name">@Pikachu</span>
+              <span class="date">${tweet.date}</span>
+            </div>
+            <div class="text">
+              ${tweet.text}
+            </div>
+            <div class="action">
+              <span class="icon_chat">0</span>
+              <span class="icon_fav">${tweet.fav_count}</span>
+              <span class="icon_res">0</span>
+              <span class="icon_share">0</span>
+            </div>
+          </div>
+        </div>`
+      timeline.innerHTML = timeline.innerHTML + template;
+    });
+  }
 
 
   </script>
