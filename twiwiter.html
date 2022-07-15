@@ -65,30 +65,16 @@
     <div class="container">
       <div id="timeline">
         <div class="tweet">
-          <div class="icon">
-            <img src="ピカチュウ.jpg" alt="">
-          </div>
-          <div class="tweet_box">
-            <div class="username">
-              ピカチュウ
-              <span class="name">@Pikachu</span>
-              <span class="date">2022/7/8 13:54</span>
-            </div>
-            <div class="text">
-              ピカァ～
-            </div>
-            <div class="action">
-              <span class="icon_chat">0</span>
-              <span class="icon_fav">0</span>
-              <span class="icon_res">0</span>
-              <span class="icon_share">0</span>
-            </div>
-          </div>
+
+          <input type="text" id="input_text" placeholder="ここに入力してね！"/>
+          <button onclick="form_tweet()" type="submit" >送信</button>
+
         </div>
       </div>
      </div>
   <script type="text/javascript">
     let timeline = document.getElementById('timeline');
+
     let array =  [{username:"ピカチュウ",date:"2022/07/12",text:"ピカァ～",fav_count:3104},
                  {username:"ピカチュウ",date:"2022/07/12",text:"ピカピィ～カ",fav_count:3104},
                  {username:"ピカチュウ",date:"2022/07/12",text:"ポケモンバトルしたくないなぁ.....",fav_count:3104},
@@ -97,10 +83,33 @@
                  {username:"ピカチュウ",date:"2022/07/12",text:"ケチャップおいしい！",fav_count:3104},
                  {username:"ピカチュウ",date:"2022/07/12",text:"ピカ！！",fav_count:3104}]
 
+  function form_tweet() {
+    let input_text = document.getElementById('input_text');
+    if (input_text.value != "") {
+      post_tweet(input_text.value,"Pikachu","ピカチュウ");
+      input_text.value = "";
+    }
+  }
+
+  async function post_tweet(text,name,username) {
+    let send_data = "?name=" + name + "&username=" +username + "&text=" + text
+    let res_data = await (await fetch("http://192.168.0.90/tweet.rb" + send_data)).text();
+     if(res_data != "OK") {
+       alert(res_data);
+     }
+  }
+
+  function escapeText(text){
+  let element = document.createElement("div");
+  element.textContent = text;
+  return element.innerHTML.replace(/\n/g,"<br>");
+　}
+
   updateTweet();
 
   async function updateTweet(){
     let array = await (await fetch("http://192.168.0.90/timeline.json")).json();
+
     array.forEach((tweet) => {
       let template = `<div class="tweet">
           <div class="icon">
@@ -109,11 +118,11 @@
           <div class="tweet_box">
             <div class="username">
               ${tweet.username}
-              <span class="name">@Pikachu</span>
+              <span class="name">@${tweet.name}</span>
               <span class="date">${tweet.date}</span>
             </div>
             <div class="text">
-              ${tweet.text}
+              ${escapeText(tweet.text)}
             </div>
             <div class="action">
               <span class="icon_chat">0</span>
